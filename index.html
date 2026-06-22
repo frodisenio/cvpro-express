@@ -937,7 +937,7 @@ async function toggleAudioCore(btn,status,field){
     }catch(e){status.textContent='No se pudo acceder al micrófono. Escribí tu respuesta.';}
   } else {
     if(mrec)mrec.stop();mrecording=false;
-    btn.classList.remove('rec');btn.textContent='🎙 Preferís grabarlo';status.textContent='Procesando...';
+    btn.classList.remove('rec');btn.textContent='🎙 Prefiero grabarlo';status.textContent='Procesando...';
   }
 }
 function startSR(field,status){
