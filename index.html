@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV Pro Express — Tu CV listo en minutos</title>
+<style>
+  /* ── TOKENS ── */
+  :root {
+    --black: #111111;
+    --white: #FFFFFF;
+    --gray-100: #F5F5F5;
+    --gray-200: #E8E8E8;
+    --gray-400: #999999;
+    --gray-600: #555555;
+    --green: #0F6E56;
+    --green-light: #F0FBF7;
+    --green-border: #5DCAA5;
+    --red: #D85A30;
+    --mp-blue: #009EE3;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+  }
+
+  /* ── RESET ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: var(--black); background: var(--white); line-height: 1.6; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+  input, textarea, select { font-family: inherit; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+  .section { padding: 72px 0; }
+  .section--gray { background: var(--gray-100); }
+
+  /* ── NAV ── */
+  nav { position: sticky; top: 0; z-index: 100; background: var(--white); border-bottom: 1px solid var(--gray-200); }
+  .nav-inner { max-width: 720px; margin: 0 auto; padding: 0 20px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+  .nav-logo span { color: var(--green); }
+  .nav-cta { font-size: 13px; font-weight: 600; padding: 8px 18px; background: var(--black); color: var(--white); border-radius: 20px; border: none; transition: opacity .2s; }
+  .nav-cta:hover { opacity: .8; }
+
+  /* ── HERO ── */
+  .hero { padding: 80px 0 72px; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--green); background: var(--green-light); border: 1px solid var(--green-border); border-radius: 20px; padding: 4px 12px; margin-bottom: 24px; }
+  .hero-title { font-size: clamp(32px, 6vw, 52px); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; margin-bottom: 20px; }
+  .hero-title em { font-style: normal; color: var(--green); }
+  .hero-sub { font-size: 18px; color: var(--gray-600); max-width: 520px; margin-bottom: 36px; line-height: 1.65; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; padding: 16px 32px; background: var(--black); color: var(--white); border-radius: var(--radius-md); border: none; transition: transform .15s, opacity .2s; }
+  .hero-cta:hover { opacity: .85; transform: translateY(-1px); }
+  .hero-cta-note { font-size: 13px; color: var(--gray-400); margin-top: 12px; }
+  .hero-visual { margin-top: 52px; background: var(--gray-100); border-radius: var(--radius-lg); border: 1px solid var(--gray-200); padding: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cv-mock { background: var(--white); border-radius: var(--radius-md); padding: 20px; border: 1px solid var(--gray-200); }
+  .cv-mock-header { margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-200); }
+  .cv-mock-name { font-size: 14px; font-weight: 700; color: var(--black); }
+  .cv-mock-contact { font-size: 10px; color: var(--gray-400); margin-top: 3px; }
+  .cv-mock-section { font-size: 8px; text-transform: uppercase; letter-spacing: .08em; color: var(--gray-400); margin: 12px 0 6px; }
+  .cv-mock-line { height: 6px; background: var(--gray-200); border-radius: 3px; margin: 4px 0; }
+  .cv-mock-line.short { width: 60%; }
+  .cv-mock-line.xshort { width: 40%; }
+  .cv-mock.styled .cv-mock-header { background: var(--green); margin: -20px -20px 14px; padding: 16px 20px 14px; border-radius: var(--radius-md) var(--radius-md) 0 0; border-bottom: none; }
+  .cv-mock.styled .cv-mock-name { color: var(--white); }
+  .cv-mock.styled .cv-mock-contact { color: rgba(255,255,255,.7); }
+  .cv-mock-label { font-size: 11px; text-align: center; color: var(--gray-400); margin-top: 10px; }
+
+  /* ── SECCIÓN PARA QUIÉN ── */
+  .section-eyebrow { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--green); margin-bottom: 12px; }
+  .section-title { font-size: clamp(22px, 4vw, 32px); font-weight: 700; letter-spacing: -.01em; margin-bottom: 16px; line-height: 1.25; }
+  .section-desc { font-size: 16px; color: var(--gray-600); margin-bottom: 32px; max-width: 560px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag { font-size: 14px; padding: 10px 18px; border: 1px solid var(--gray-200); border-radius: 20px; color: var(--gray-600); background: var(--white); }
+
+  /* ── CÓMO FUNCIONA ── */
+  .steps { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+  .step-row { display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding-bottom: 36px; position: relative; }
+  .step-row:not(:last-child)::before { content: ''; position: absolute; left: 23px; top: 48px; bottom: 0; width: 1px; background: var(--gray-200); }
+  .step-num { width: 48px; height: 48px; border-radius: 50%; background: var(--black); color: var(--white); font-size: 16px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-body { padding-top: 10px; }
+  .step-body h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; }
+  .step-body p { font-size: 15px; color: var(--gray-600); line-height: 1.6; }
+
+  /* ── QUÉ RECIBÍS ── */
+  .entregables { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+  .entregable { display: flex; align-items: flex-start; gap: 14px; padding: 18px 20px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); background: var(--white); }
+  .entregable-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--green-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; }
+  .entregable-body h4 { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+  .entregable-body p { font-size: 13px; color: var(--gray-600); line-height: 1.5; }
+
+  /* ── ANTES / DESPUÉS ── */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 36px; }
+  .compare-col { border-radius: var(--radius-md); padding: 20px; }
+  .compare-col.bad { background: #FFF5F5; border: 1px solid #FFCCCC; }
+  .compare-col.good { background: var(--green-light); border: 1px solid var(--green-border); }
+  .compare-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 14px; }
+  .compare-col.bad .compare-label { color: var(--red); }
+  .compare-col.good .compare-label { color: var(--green); }
+  .compare-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--gray-600); margin-bottom: 10px; line-height: 1.5; }
+  .compare-item:last-child { margin-bottom: 0; }
+  .compare-item-icon { flex-shrink: 0; margin-top: 1px; }
+
+  /* ── PRECIO ── */
+  .precio-card { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 40px; text-align: center; max-width: 440px; margin: 40px auto 0; }
+  .precio-amount { font-size: 52px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+  .precio-note { font-size: 14px; color: var(--gray-400); margin-top: 8px; margin-bottom: 28px; }
+  .precio-features { text-align: left; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .precio-feature { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--gray-600); }
+  .precio-feature-icon { color: var(--green); font-size: 15px; flex-shrink: 0; }
+  .btn-precio { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 16px; border-radius: var(--radius-md); background: var(--black); color: var(--white); font-size: 16px; font-weight: 600; border: none; transition: opacity .2s; }
+  .btn-precio:hover { opacity: .85; }
+
+  /* ── EMPLEOS ── */
+  .empleos-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .empleo-filter-btn { font-size: 13px; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--gray-200); background: var(--white); color: var(--gray-600); cursor: pointer; transition: all .2s; }
+  .empleo-filter-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+  .empleos-list { display: flex; flex-direction: column; gap: 10px; }
+  .empleo-card { border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 20px; background: var(--white); }
+  .empleo-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+  .empleo-puesto { font-size: 16px; font-weight: 600; }
+  .empleo-zona { font-size: 12px; color: var(--gray-400); background: var(--gray-100); border-radius: 20px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0; }
+  .empleo-req { font-size: 13px; color: var(--gray-600); margin-bottom: 12px; line-height: 1.5; }
+  .empleo-footer { display: flex; justify-content: space-between; align-items: center; }
+  .empleo-contacto { font-size: 13px; color: var(--green); font-weight: 500; }
+  .empleo-fecha { font-size: 11px; color: var(--gray-400); }
+  .empleos-empty { text-align: center; padding: 40px; color: var(--gray-400); font-size: 14px; border: 1px dashed var(--gray-200); border-radius: var(--radius-md); }
+  .admin-toggle { font-size: 13px; color: var(--gray-400); background: none; border: none; cursor: pointer; margin-top: 16px; display: block; }
+  .admin-panel { display: none; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 24px; margin-top: 16px; }
+  .admin-panel.open { display: block; }
+  .admin-panel h4 { font-size: 15px; font-weight: 600; margin-bottom: 16px; }
+  .field { margin-bottom: 12px; }
+  .field label { display: block; font-size: 13px; color: var(--gray-600); margin-bottom: 4px; }
+  .field input, .field textarea, .field select { width: 100%; font-size: 14px; padding: 9px 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--white); color: var(--black); resize: vertical; }
+  .field textarea { min-height: 70px; }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .btn-admin { font-size: 14px; font-weight: 600; padding: 10px 20px; background: var(--black); color: var(--white); border-radius: var(--radius-sm); border: none; cursor: pointer; }
+  .admin-items { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+  .admin-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); }
+  .admin-item-name { font-size: 14px; font-weight: 500; }
+  .admin-item-sub { font-size: 12px; color: var(--gray-400); }
+  .btn-del { font-size: 12px; color: var(--red); background: none; border: 1px solid var(--red); border-radius: var(--radius-sm); padding: 4px 10px; cursor: pointer; }
+
+  /* ── FAQ ── */
+  .faq-list { margin-top: 36px; display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--gray-200); }
+  .faq-item { border-bottom: 1px solid var(--gray-200); }
+  .faq-q { width: 100%; text-align: left; font-size: 15px; font-weight: 500; padding: 20px 0; background: none; border: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; cursor: pointer; color: var(--black); }
+  .faq-icon { font-size: 20px; color: var(--gray-400); flex-shrink: 0; transition: transform .2s; }
+  .faq-item.open .faq-icon { transform: rotate(45deg); }
+  .faq-a { font-size: 15px; color: var(--gray-600); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s; }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 20px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--black); color: var(--white); padding: 32px 0; }
+  .footer-inner { max-width: 720px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .footer-logo { font-size: 14px; font-weight: 700; }
+  .footer-logo span { color: var(--green-border); }
+  .footer-note { font-size: 12px; color: var(--gray-400); }
+
+  /* ── HERRAMIENTA (pantalla oculta) ── */
+  #herramienta { display: none; }
+  #herramienta.active { display: block; }
+  .tool-wrap { max-width: 680px; margin: 0 auto; padding: 40px 20px; }
+  .tool-progress { display: flex; gap: 6px; margin-bottom: 28px; }
+  .tool-dot { flex: 1; height: 3px; background: var(--gray-200); border-radius: 2px; transition: background .3s; }
+  .tool-dot.done { background: var(--green); }
+  .tool-dot.active { background: var(--green); opacity: .5; }
+  .tool-step { display: none; }
+  .tool-step.active { display: block; }
+  .tool-label { font-size: 12px; color: var(--gray-400); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+  .tool-title { font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: -.01em; }
+  .tool-desc { font-size: 15px; color: var(--gray-600); margin-bottom: 24px; line-height: 1.6; }
+  .tool-field { margin-bottom: 16px; }
+  .tool-field label { display: block; font-size: 13px; color: var(--gray-600); margin-bottom: 5px; }
+  .tool-field input, .tool-field textarea, .tool-field select { width: 100%; font-size: 15px; padding: 11px 14px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); background: var(--white); color: var(--black); resize: vertical; }
+  .tool-field textarea { min-height: 90px; }
+  .tool-hint { font-size: 12px; color: var(--gray-400); margin-top: 5px; line-height: 1.5; }
+  .tool-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tool-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; }
+  .tool-back { font-size: 14px; color: var(--gray-400); background: none; border: none; cursor: pointer; }
+  .tool-next { font-size: 15px; font-weight: 600; padding: 12px 28px; border-radius: var(--radius-md); background: var(--black); color: var(--white); border: none; cursor: pointer; transition: opacity .2s; }
+  .tool-next:hover { opacity: .85; }
+  .repeat-block { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px 18px; margin-bottom: 12px; }
+  .repeat-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .repeat-header span { font-size: 14px; font-weight: 600; }
+  .btn-remove { background: none; border: none; cursor: pointer; color: var(--gray-400); font-size: 20px; line-height: 1; }
+  .btn-add-block { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px; color: var(--green); background: none; border: 1px dashed var(--green-border); border-radius: var(--radius-md); padding: 10px; width: 100%; cursor: pointer; margin-top: 4px; }
+  .btn-add-block:hover { background: var(--green-light); }
+  .audio-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .btn-audio { display: flex; align-items: center; gap: 6px; font-size: 13px; padding: 7px 14px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--gray-100); color: var(--gray-600); cursor: pointer; }
+  .btn-audio.rec { border-color: var(--red); color: var(--red); }
+  .audio-status { font-size: 12px; color: var(--gray-400); }
+  .tag-opt { font-size: 11px; color: var(--gray-400); border: 1px solid var(--gray-200); border-radius: 4px; padding: 1px 7px; margin-left: 8px; }
+  .helper-box { background: var(--green-light); border: 1px solid var(--green-border); border-radius: var(--radius-md); padding: 16px 18px; margin-bottom: 18px; }
+  .helper-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .helper-head span { font-size: 13px; font-weight: 600; color: var(--green); }
+  .helper-toggle { font-size: 12px; color: var(--green); background: none; border: none; cursor: pointer; }
+  .q-list { display: flex; flex-direction: column; gap: 6px; }
+  .q-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; border-radius: var(--radius-sm); border: 1px solid var(--green-border); background: var(--white); cursor: pointer; transition: border-color .2s; }
+  .q-item:hover { border-color: var(--green); }
+  .q-item.added { opacity: .6; cursor: default; }
+  .q-dot { width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--green); flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--green); }
+  .q-text { font-size: 13px; color: var(--black); line-height: 1.5; }
+  .helper-hint { font-size: 12px; color: var(--green); margin-top: 10px; }
+  .style-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .style-card { border: 2px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px; cursor: pointer; transition: border-color .2s; }
+  .style-card.sel { border-color: var(--green); }
+  .cv-mini { width: 100%; height: 120px; border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--gray-200); margin-bottom: 10px; }
+  .cv-mini-hmin { border-bottom: 1px solid var(--gray-200); padding: 8px 10px 6px; }
+  .cv-mini-name { font-size: 8px; font-weight: 700; color: var(--black); }
+  .cv-mini-sub { font-size: 6px; color: var(--gray-400); margin-top: 1px; }
+  .cv-mini-body { padding: 8px 10px; flex: 1; }
+  .cv-mini-sec { font-size: 6px; text-transform: uppercase; color: var(--gray-400); margin: 5px 0 3px; }
+  .cv-mini-l { height: 4px; background: var(--gray-200); border-radius: 2px; margin: 3px 0; }
+  .cv-mini-l.s { width: 55%; }
+  .cv-mini-hsty { padding: 8px 10px; flex: 0 0 32px; display: flex; align-items: center; }
+  .cv-mini-wsty { font-size: 8px; font-weight: 700; color: var(--white); }
+  .style-name { font-size: 13px; font-weight: 600; color: var(--black); }
+  .style-desc { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 16px; }
+  .swatch { width: 32px; height: 32px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: border-color .2s; position: relative; }
+  .swatch.sel { border-color: var(--black); }
+  .swatch.sel::after { content: ''; position: absolute; inset: 4px; border-radius: 50%; border: 2px solid var(--white); }
+  .success-box { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 20px; margin-bottom: 20px; }
+  .success-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--gray-200); }
+  .success-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .s-check { width: 20px; height: 20px; border-radius: 50%; background: var(--green); color: var(--white); display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; }
+  .s-title { font-size: 14px; font-weight: 600; }
+  .s-desc { font-size: 13px; color: var(--gray-600); margin-top: 2px; }
+  .btn-dl { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 14px; border-radius: var(--radius-md); background: var(--green); color: var(--white); font-size: 15px; font-weight: 600; border: none; cursor: pointer; margin-bottom: 10px; transition: opacity .2s; }
+  .btn-dl:hover { opacity: .88; }
+  .btn-dl:disabled { opacity: .4; cursor: not-allowed; }
+  .btn-sec { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; border-radius: var(--radius-md); background: none; color: var(--black); font-size: 14px; border: 1px solid var(--gray-200); cursor: pointer; }
+  .btn-sec:hover { background: var(--gray-100); }
+  .tool-access-note { font-size: 12px; color: var(--gray-400); text-align: center; margin-top: 10px; line-height: 1.6; }
+
+  /* ── PANTALLA DE PAGO ── */
+  #pago { display: none; }
+  #pago.active { display: block; }
+  .pago-wrap { max-width: 480px; margin: 0 auto; padding: 60px 20px; }
+  .pago-title { font-size: 26px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 8px; }
+  .pago-desc { font-size: 15px; color: var(--gray-600); margin-bottom: 28px; }
+  .pago-card { border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 28px; margin-bottom: 20px; }
+  .pago-precio { font-size: 44px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+  .pago-precio-note { font-size: 13px; color: var(--gray-400); margin-top: 6px; margin-bottom: 20px; }
+  .pago-includes { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .pago-inc-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-600); }
+  .pago-inc-check { color: var(--green); font-size: 14px; }
+  .btn-mp { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 15px; border-radius: var(--radius-md); background: var(--mp-blue); color: var(--white); font-size: 15px; font-weight: 600; border: none; cursor: pointer; transition: opacity .2s; }
+  .btn-mp:hover { opacity: .9; }
+  .mp-badge { font-size: 11px; font-weight: 700; background: var(--white); color: var(--mp-blue); padding: 2px 6px; border-radius: 4px; }
+  .pago-secure { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 12px; color: var(--gray-400); margin-top: 12px; }
+  .btn-back-landing { font-size: 13px; color: var(--gray-400); background: none; border: none; cursor: pointer; display: block; text-align: center; margin-top: 16px; }
+
+  /* ── GRACIAS ── */
+  #gracias { display: none; }
+  #gracias.active { display: block; }
+  .gracias-wrap { max-width: 520px; margin: 0 auto; padding: 60px 20px; text-align: center; }
+  .gracias-icon { width: 72px; height: 72px; background: var(--green-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; font-size: 32px; }
+  .gracias-title { font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+  .gracias-desc { font-size: 15px; color: var(--gray-600); margin-bottom: 32px; line-height: 1.6; }
+  .gracias-steps { display: flex; flex-direction: column; gap: 10px; text-align: left; margin-bottom: 28px; }
+  .gracias-step { display: flex; align-items: flex-start; gap: 14px; padding: 14px 16px; border: 1px solid var(--gray-200); border-radius: var(--radius-md); background: var(--gray-100); }
+  .g-num { width: 28px; height: 28px; border-radius: 50%; background: var(--black); color: var(--white); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .g-step-title { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .g-step-desc { font-size: 13px; color: var(--gray-600); }
+  .btn-empezar { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 15px; border-radius: var(--radius-md); background: var(--green); color: var(--white); font-size: 16px; font-weight: 600; border: none; cursor: pointer; transition: opacity .2s; }
+  .btn-empezar:hover { opacity: .88; }
+  .gracias-nota { font-size: 12px; color: var(--gray-400); margin-top: 14px; line-height: 1.6; }
+  .gracias-legal { font-size: 11px; color: var(--gray-400); margin-top: 20px; padding: 12px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); line-height: 1.6; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 560px) {
+    .hero-visual { grid-template-columns: 1fr; }
+    .compare { grid-template-columns: 1fr; }
+    .style-cards { grid-template-columns: 1fr; }
+    .tool-row2 { grid-template-columns: 1fr; }
+    .row2 { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── LANDING ── -->
+<div id="landing">
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">CV<span>PRO</span> EXPRESS</div>
+    <button class="nav-cta" onclick="irAPago()">Quiero mi CV — $9.500</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">✦ Acceso inmediato</div>
+    <h1 class="hero-title">Tu CV listo en minutos,<br><em>sin complicaciones</em></h1>
+    <p class="hero-sub">Completás tus datos, elegís el estilo y descargás tu currículum en PDF. Sin Word, sin diseño, sin vueltas.</p>
+    <button class="hero-cta" onclick="irAPago()">
+      Quiero mi CV — $9.500
+    </button>
+    <p class="hero-cta-note">Pago único · Sin suscripciones · Acceso inmediato</p>
+    <div class="hero-visual">
+      <div>
+        <div class="cv-mock">
+          <div class="cv-mock-header">
+            <div class="cv-mock-name">Ana García</div>
+            <div class="cv-mock-contact">Córdoba · 351 456 7890</div>
+          </div>
+          <div class="cv-mock-section">Experiencia</div>
+          <div class="cv-mock-line"></div>
+          <div class="cv-mock-line short"></div>
+          <div class="cv-mock-section">Estudios</div>
+          <div class="cv-mock-line"></div>
+          <div class="cv-mock-line xshort"></div>
+          <div class="cv-mock-section">Habilidades</div>
+          <div class="cv-mock-line short"></div>
+        </div>
+        <div class="cv-mock-label">Estilo limpio</div>
+      </div>
+      <div>
+        <div class="cv-mock styled">
+          <div class="cv-mock-header">
+            <div class="cv-mock-name">Ana García</div>
+            <div class="cv-mock-contact">Córdoba · 351 456 7890</div>
+          </div>
+          <div class="cv-mock-section">Experiencia</div>
+          <div class="cv-mock-line"></div>
+          <div class="cv-mock-line short"></div>
+          <div class="cv-mock-section">Estudios</div>
+          <div class="cv-mock-line"></div>
+          <div class="cv-mock-line xshort"></div>
+          <div class="cv-mock-section">Habilidades</div>
+          <div class="cv-mock-line short"></div>
+        </div>
+        <div class="cv-mock-label">Estilo con color</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUIÉN -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-eyebrow">Para quién es</div>
+    <h2 class="section-title">¿Esto es para vos?</h2>
+    <p class="section-desc">Si estás buscando trabajo y no sabés cómo armar tu CV, o ya armaste uno pero nunca te llaman, esto es para vos.</p>
+    <div class="tags">
+      <div class="tag">Primer trabajo</div>
+      <div class="tag">Estudiantes</div>
+      <div class="tag">Docentes</div>
+      <div class="tag">Administrativos</div>
+      <div class="tag">Volvés al mercado laboral</div>
+      <div class="tag">Cambio de rubro</div>
+      <div class="tag">Sin experiencia formal</div>
+      <div class="tag">+16 años</div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Cómo funciona</div>
+    <h2 class="section-title">Tres pasos y listo</h2>
+    <div class="steps">
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Completás tus datos</h3>
+          <p>Te guiamos con preguntas simples. Podés escribir o usar el micrófono si preferís hablar. También te ayudamos a descubrir habilidades que tenés y quizás no sabías cómo mostrar.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Elegís el estilo</h3>
+          <p>Dos opciones con 5 colores a elegir. Los dos se ven profesionales y funcionan para cualquier empresa o impresión.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Descargás tu CV en PDF</h3>
+          <p>Listo para imprimir, enviar por WhatsApp o adjuntar en cualquier postulación. Sin pasos extra, sin cuentas, sin aplicaciones.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ RECIBÍS -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-eyebrow">Qué incluye</div>
+    <h2 class="section-title">Todo lo que necesitás para postularte</h2>
+    <div class="entregables">
+      <div class="entregable">
+        <div class="entregable-icon">📄</div>
+        <div class="entregable-body">
+          <h4>Tu CV en PDF</h4>
+          <p>Generado al instante, en el estilo que elegiste. Listo para imprimir o enviar desde el celular.</p>
+        </div>
+      </div>
+      <div class="entregable">
+        <div class="entregable-icon">🎨</div>
+        <div class="entregable-body">
+          <h4>Dos estilos con colores a elegir</h4>
+          <p>Limpio o con color — cinco opciones de encabezado para que el CV sea tuyo.</p>
+        </div>
+      </div>
+      <div class="entregable">
+        <div class="entregable-icon">💡</div>
+        <div class="entregable-body">
+          <h4>Ayuda para descubrir tus habilidades</h4>
+          <p>Preguntas simples que te ayudan a identificar lo que sabés hacer, aunque nunca hayas trabajado formalmente.</p>
+        </div>
+      </div>
+      <div class="entregable">
+        <div class="entregable-icon">⚠️</div>
+        <div class="entregable-body">
+          <h4>Guía de errores comunes</h4>
+          <p>Lo que evitar para que tu CV se vea profesional desde el primer vistazo.</p>
+        </div>
+      </div>
+      <div class="entregable">
+        <div class="entregable-icon">✅</div>
+        <div class="entregable-body">
+          <h4>Checklist antes de postularte</h4>
+          <p>Para revisar todo y postularte con confianza.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANTES / DESPUÉS -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Errores comunes</div>
+    <h2 class="section-title">Pequeños detalles que hacen una gran diferencia</h2>
+    <p class="section-desc">Muchas veces no te llaman por cosas que se pueden corregir fácil.</p>
+    <div class="compare">
+      <div class="compare-col bad">
+        <div class="compare-label">❌ Frecuente</div>
+        <div class="compare-item"><span class="compare-item-icon">·</span> Foto informal o recortada de otra foto</div>
+        <div class="compare-item"><span class="compare-item-icon">·</span> Letra muy grande para "llenar" la hoja</div>
+        <div class="compare-item"><span class="compare-item-icon">·</span> Solo trabajos anteriores, sin habilidades</div>
+        <div class="compare-item"><span class="compare-item-icon">·</span> Datos innecesarios: DNI, estado civil, edad</div>
+      </div>
+      <div class="compare-col good">
+        <div class="compare-label">✓ Cómo debería verse</div>
+        <div class="compare-item"><span class="compare-item-icon">·</span> Sin foto, o foto tipo carnet con buena luz</div>
+        <div class="compare-item"><span class="compare-item-icon">·</span> Tipografía pareja y fácil de leer</div>
+        <div class="compare-item"><span class="compare-item-icon">·</span> Experiencia + todo lo que sabés hacer</div>
+        <div class="compare-item"><span class="compare-item-icon">·</span> Solo lo que importa: contacto y experiencia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIO -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-eyebrow">Precio</div>
+    <h2 class="section-title" style="text-align:center">Un CV profesional por menos de lo que pensás</h2>
+    <div class="precio-card">
+      <div class="precio-amount">$9.500</div>
+      <div class="precio-note">Pago único · Sin suscripciones · Acceso inmediato</div>
+      <div class="precio-features">
+        <div class="precio-feature"><span class="precio-feature-icon">✓</span> CV en PDF listo para imprimir o enviar</div>
+        <div class="precio-feature"><span class="precio-feature-icon">✓</span> Dos estilos con 5 colores a elegir</div>
+        <div class="precio-feature"><span class="precio-feature-icon">✓</span> Ayuda para descubrir tus habilidades</div>
+        <div class="precio-feature"><span class="precio-feature-icon">✓</span> Guía de errores comunes</div>
+        <div class="precio-feature"><span class="precio-feature-icon">✓</span> Checklist antes de postularte</div>
+      </div>
+      <button class="btn-precio" onclick="irAPago()">Quiero mi CV</button>
+    </div>
+  </div>
+</section>
+
+<!-- EMPLEOS -->
+<section class="section">
+  <div class="container">
+    <div class="section-eyebrow">Búsquedas activas</div>
+    <h2 class="section-title">Empleos cerca tuyo</h2>
+    <p class="section-desc">Búsquedas reales en tu zona, actualizadas frecuentemente.</p>
+    <div class="empleos-filters" id="empFilters"></div>
+    <div class="empleos-list" id="empList"><div class="empleos-empty">Cargando empleos...</div></div>
+    <button class="admin-toggle" onclick="toggleAdmin()">⚙ Actualizar empleos</button>
+    <div class="admin-panel" id="adminPanel">
+      <h4>Agregar empleo</h4>
+      <div class="row2">
+        <div class="field"><label>Puesto</label><input id="ap" type="text" placeholder="Ej: Cajero/a, Docente..."></div>
+        <div class="field"><label>Localidad</label><input id="al" type="text" placeholder="Ej: Santa Rosa..."></div>
+      </div>
+      <div class="field"><label>Requisitos</label><textarea id="ar" placeholder="Secundario completo, experiencia en..."></textarea></div>
+      <div class="row2">
+        <div class="field"><label>Contacto</label><input id="ac" type="text" placeholder="mail o teléfono"></div>
+        <div class="field"><label>Rubro</label>
+          <select id="arub">
+            <option>Administración</option><option>Atención al cliente</option><option>Docencia</option>
+            <option>Gastronomía</option><option>Salud</option><option>Comercio</option>
+            <option>Limpieza y mantenimiento</option><option>Logística</option><option>Otros</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-admin" onclick="addEmpleo()">Agregar</button>
+      <div class="admin-items" id="adminItems"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section--gray">
+  <div class="container">
+    <div class="section-eyebrow">Preguntas frecuentes</div>
+    <h2 class="section-title">¿Tenés dudas?</h2>
+    <div class="faq-list" id="faqList"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">CV<span>PRO</span> EXPRESS</div>
+    <div class="footer-note">© 2025 · Acceso personal e intransferible</div>
+  </div>
+</footer>
+
+</div><!-- /landing -->
+
+<!-- ── PANTALLA DE PAGO ── -->
+<div id="pago">
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">CV<span>PRO</span> EXPRESS</div>
+    </div>
+  </nav>
+  <div class="pago-wrap">
+    <h2 class="pago-title">Completá tu compra</h2>
+    <p class="pago-desc">Acceso inmediato después del pago.</p>
+    <div class="pago-card">
+      <div class="pago-precio">$9.500</div>
+      <div class="pago-precio-note">Pago único · Sin suscripciones</div>
+      <div class="pago-includes">
+        <div class="pago-inc-item"><span class="pago-inc-check">✓</span> CV en PDF generado al instante</div>
+        <div class="pago-inc-item"><span class="pago-inc-check">✓</span> Dos estilos con colores a elegir</div>
+        <div class="pago-inc-item"><span class="pago-inc-check">✓</span> Ayuda para descubrir tus habilidades</div>
+        <div class="pago-inc-item"><span class="pago-inc-check">✓</span> Guía de errores comunes + checklist</div>
+      </div>
+      <button class="btn-mp" onclick="simularPago()">
+        <span class="mp-badge">MP</span>
+        Pagar con Mercado Pago
+      </button>
+      <div class="pago-secure">🔒 Pago seguro · Tu información está protegida</div>
+    </div>
+    <button class="btn-back-landing" onclick="irALanding()">← Volver</button>
+  </div>
+</div>
+
+<!-- ── PANTALLA DE GRACIAS ── -->
+<div id="gracias">
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">CV<span>PRO</span> EXPRESS</div>
+    </div>
+  </nav>
+  <div class="gracias-wrap">
+    <div class="gracias-icon">✓</div>
+    <h2 class="gracias-title">¡Listo, ya tenés acceso!</h2>
+    <p class="gracias-desc">Tu pago se acreditó correctamente. Ahora podés armar tu CV en tres pasos simples.</p>
+    <div class="gracias-steps">
+      <div class="gracias-step">
+        <div class="g-num">1</div>
+        <div>
+          <div class="g-step-title">Completás tus datos</div>
+          <div class="g-step-desc">Te guiamos con preguntas simples. Podés escribir o usar el micrófono.</div>
+        </div>
+      </div>
+      <div class="gracias-step">
+        <div class="g-num">2</div>
+        <div>
+          <div class="g-step-title">Elegís el estilo</div>
+          <div class="g-step-desc">Dos opciones con 5 colores a elegir.</div>
+        </div>
+      </div>
+      <div class="gracias-step">
+        <div class="g-num">3</div>
+        <div>
+          <div class="g-step-title">Descargás tu CV en PDF</div>
+          <div class="g-step-desc">Listo para imprimir o enviar por WhatsApp.</div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-empezar" onclick="irAHerramienta()">Empezar a armar mi CV →</button>
+    <p class="gracias-nota">Guardá el PDF que descargues — es tu CV terminado para usar cuando quieras.</p>
+    <div class="gracias-legal">Este acceso es personal e intransferible. Compartirlo es una violación a los términos de uso del producto.</div>
+  </div>
+</div>
+
+<!-- ── HERRAMIENTA ── -->
+<div id="herramienta">
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-logo">CV<span>PRO</span> EXPRESS</div>
+    </div>
+  </nav>
+  <div class="tool-wrap">
+    <div class="tool-progress">
+      <div class="tool-dot active" id="td1"></div>
+      <div class="tool-dot" id="td2"></div>
+      <div class="tool-dot" id="td3"></div>
+      <div class="tool-dot" id="td4"></div>
+      <div class="tool-dot" id="td5"></div>
+    </div>
+
+    <!-- Paso 1 -->
+    <div class="tool-step active" id="ts1">
+      <div class="tool-label">Paso 1 de 5</div>
+      <h2 class="tool-title">Tus datos personales</h2>
+      <p class="tool-desc">Completá lo que tenés y dejá en blanco lo que no aplica.</p>
+      <div class="tool-row2">
+        <div class="tool-field"><label>Nombre</label><input id="t-nombre" type="text" placeholder="Ej: Ana"></div>
+        <div class="tool-field"><label>Apellido</label><input id="t-apellido" type="text" placeholder="Ej: García"></div>
+      </div>
+      <div class="tool-row2">
+        <div class="tool-field"><label>Teléfono</label><input id="t-tel" type="tel" placeholder="Ej: 351 4567890"></div>
+        <div class="tool-field"><label>Mail</label><input id="t-mail" type="email" placeholder="Ej: ana@mail.com"></div>
+      </div>
+      <div class="tool-row2">
+        <div class="tool-field"><label>Ciudad</label><input id="t-ciudad" type="text" placeholder="Ej: Córdoba"></div>
+        <div class="tool-field"><label>Provincia</label><input id="t-prov" type="text" placeholder="Ej: Córdoba"></div>
+      </div>
+      <div class="tool-nav"><span></span><button class="tool-next" onclick="toolGoTo(2)">Siguiente</button></div>
+    </div>
+
+    <!-- Paso 2 -->
+    <div class="tool-step" id="ts2">
+      <div class="tool-label">Paso 2 de 5</div>
+      <h2 class="tool-title">Tu experiencia laboral</h2>
+      <p class="tool-desc">Si nunca tuviste trabajo formal, podés saltar este paso o contar actividades informales.</p>
+      <div id="expContainer"></div>
+      <button class="btn-add-block" onclick="addExp()">+ Agregar otro trabajo</button>
+      <div class="tool-nav">
+        <button class="tool-back" onclick="toolGoTo(1)">← Atrás</button>
+        <button class="tool-next" onclick="toolGoTo(3)">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- Paso 3 -->
+    <div class="tool-step" id="ts3">
+      <div class="tool-label">Paso 3 de 5</div>
+      <h2 class="tool-title">Estudios</h2>
+      <p class="tool-desc">Primario, secundario, cursos, talleres. Todo cuenta, aunque no hayas terminado.</p>
+      <div id="eduContainer"></div>
+      <button class="btn-add-block" onclick="addEdu()">+ Agregar otro estudio</button>
+      <div class="tool-nav">
+        <button class="tool-back" onclick="toolGoTo(2)">← Atrás</button>
+        <button class="tool-next" onclick="toolGoTo(4)">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- Paso 4 -->
+    <div class="tool-step" id="ts4">
+      <div class="tool-label">Paso 4 de 5</div>
+      <h2 class="tool-title">Lo que sabés hacer</h2>
+      <p class="tool-desc">No hace falta haberlo aprendido en un trabajo. Si lo hacés, lo sabés hacer.</p>
+      <div class="helper-box">
+        <div class="helper-head">
+          <span>¿No sabés qué poner? Respondé estas preguntas</span>
+          <button class="helper-toggle" id="helperToggle" onclick="toggleHelper()">Ocultar</button>
+        </div>
+        <div id="helperContent">
+          <div class="q-list" id="qList"></div>
+          <p class="helper-hint">Tocá las que te describen y se agregan automáticamente.</p>
+        </div>
+      </div>
+      <div class="tool-field">
+        <label>Tus habilidades</label>
+        <textarea id="t-hab" placeholder="Ej: Atención al cliente, organización, manejo de redes sociales..."></textarea>
+        <div class="tool-hint">Separalas con comas. Podés escribir, tocar las sugerencias, o usar el micrófono.</div>
+        <div class="audio-row">
+          <button class="btn-audio" id="btnAudHab" onclick="toggleAudio('t-hab','btnAudHab','stHab')">🎙 Preferís grabarlo</button>
+          <span class="audio-status" id="stHab"></span>
+        </div>
+      </div>
+      <div class="tool-field">
+        <label>Idiomas <span class="tag-opt">opcional</span></label>
+        <input id="t-idiomas" type="text" placeholder="Ej: Español (nativo), inglés básico">
+      </div>
+      <div class="tool-nav">
+        <button class="tool-back" onclick="toolGoTo(3)">← Atrás</button>
+        <button class="tool-next" onclick="toolGoTo(5)">Siguiente</button>
+      </div>
+    </div>
+
+    <!-- Paso 5 -->
+    <div class="tool-step" id="ts5">
+      <div class="tool-label">Paso 5 de 5</div>
+      <h2 class="tool-title">Elegí el estilo de tu CV</h2>
+      <p class="tool-desc">Los dos se ven profesionales. La diferencia es visual.</p>
+      <div class="style-cards">
+        <div class="style-card sel" id="cardMin" onclick="selStyle('minimal')">
+          <div class="cv-mini">
+            <div class="cv-mini-hmin">
+              <div class="cv-mini-name" id="pNomMin">Tu nombre</div>
+              <div class="cv-mini-sub" id="pCiuMin">Ciudad</div>
+            </div>
+            <div class="cv-mini-body">
+              <div class="cv-mini-sec">Experiencia</div>
+              <div class="cv-mini-l"></div><div class="cv-mini-l s"></div>
+              <div class="cv-mini-sec">Habilidades</div>
+              <div class="cv-mini-l s"></div>
+            </div>
+          </div>
+          <div class="style-name">Limpio y simple</div>
+          <div class="style-desc">Encabezado en blanco y negro</div>
+        </div>
+        <div class="style-card" id="cardSty" onclick="selStyle('styled')">
+          <div class="cv-mini">
+            <div class="cv-mini-hsty" id="styHeader" style="background:#1D4ED8">
+              <div class="cv-mini-wsty" id="pNomSty">Tu nombre</div>
+            </div>
+            <div class="cv-mini-body">
+              <div class="cv-mini-sec">Experiencia</div>
+              <div class="cv-mini-l"></div><div class="cv-mini-l s"></div>
+              <div class="cv-mini-sec">Habilidades</div>
+              <div class="cv-mini-l s"></div>
+            </div>
+          </div>
+          <div class="style-name">Con color</div>
+          <div class="style-desc">Elegí el color del encabezado</div>
+        </div>
+      </div>
+      <div id="colorWrap" style="display:none;margin-bottom:16px">
+        <div style="font-size:13px;color:var(--gray-600);margin-bottom:8px">Color del encabezado</div>
+        <div class="swatches" id="swatches"></div>
+      </div>
+      <div class="tool-nav">
+        <button class="tool-back" onclick="toolGoTo(4)">← Atrás</button>
+        <button class="tool-next" onclick="toolGoTo(6)">Generar mi CV</button>
+      </div>
+    </div>
+
+    <!-- Paso 6: Descarga -->
+    <div class="tool-step" id="ts6">
+      <h2 class="tool-title" style="margin-bottom:6px">¡Tu CV está listo!</h2>
+      <p class="tool-desc" style="margin-bottom:20px">Descargalo en PDF, listo para imprimir o enviar.</p>
+      <div class="success-box">
+        <div class="success-item">
+          <div class="s-check">✓</div>
+          <div><div class="s-title">CV generado en el estilo que elegiste</div><div class="s-desc">Listo para imprimir o enviar por WhatsApp.</div></div>
+        </div>
+        <div class="success-item">
+          <div class="s-check">✓</div>
+          <div><div class="s-title">Sin errores comunes</div><div class="s-desc">Tipografía prolija, estructura clara, habilidades incluidas.</div></div>
+        </div>
+      </div>
+      <button class="btn-dl" id="btnDl" onclick="downloadPDF()">⬇ Descargar CV en PDF</button>
+      <div id="dlLoading" style="display:none;text-align:center;font-size:14px;color:var(--gray-400);padding:10px">Generando tu PDF...</div>
+      <button class="btn-sec" onclick="toolGoTo(5)">← Cambiar estilo</button>
+      <p class="tool-access-note">Este acceso es personal e intransferible.</p>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+// ── NAVEGACIÓN DE PANTALLAS ──
+function mostrar(id){
+  ['landing','pago','gracias','herramienta'].forEach(s=>{
+    const el=document.getElementById(s);
+    el.style.display='none';
+    el.classList.remove('active');
+  });
+  const target=document.getElementById(id);
+  target.style.display='block';
+  target.classList.add('active');
+  window.scrollTo(0,0);
+}
+function irAPago(){ mostrar('pago'); }
+function irALanding(){ mostrar('landing'); }
+function simularPago(){
+  // En producción: verificar ?status=approved de Mercado Pago
+  mostrar('gracias');
+}
+function irAHerramienta(){ mostrar('herramienta'); }
+
+// ── TOOL STEPS ──
+let toolStep=1,expC=0,eduC=0;
+let cvStyle='minimal',selColor={name:'Azul',hex:'#1D4ED8',r:29,g:78,b:216};
+let helperOpen=true,addedHab=new Set();
+let mrec=null,mchunks=[],mrecording=false;
+
+const COLORS=[
+  {name:'Azul',hex:'#1D4ED8',r:29,g:78,b:216},
+  {name:'Verde',hex:'#0F6E56',r:15,g:110,b:86},
+  {name:'Bordo',hex:'#991B1B',r:153,g:27,b:27},
+  {name:'Violeta',hex:'#5B21B6',r:91,g:33,b:182},
+  {name:'Gris oscuro',hex:'#1F2937',r:31,g:41,b:55},
+];
+
+const PREGUNTAS=[
+  {t:'¿Te comunicás bien con la gente, ya sea en persona, por teléfono o por escrito?',h:'Comunicación'},
+  {t:'¿Organizás tu tiempo y tus tareas sin que nadie te lo diga?',h:'Organización y autonomía'},
+  {t:'¿Usás redes sociales, WhatsApp o publicás contenido desde el celular?',h:'Manejo de redes sociales'},
+  {t:'¿Alguna vez atendiste clientes, pacientes, alumnos o público en general?',h:'Atención al cliente'},
+  {t:'¿Sabés leer o hablar en otro idioma, aunque sea básico?',h:'Idiomas'},
+  {t:'¿Aprendés rápido cuando te enseñan algo nuevo?',h:'Capacidad de aprendizaje'},
+  {t:'¿Trabajaste en equipo o coordinaste personas, aunque sea en un contexto informal?',h:'Trabajo en equipo'},
+  {t:'¿Cuidaste a alguien: niños, adultos mayores, personas con necesidades especiales?',h:'Cuidado de personas'},
+  {t:'¿Manejás plata, hacés cuentas o administrás un presupuesto?',h:'Administración y manejo de dinero'},
+  {t:'¿Cocinás, hacés manualidades, reparás cosas o tenés algún oficio?',h:'Oficio o habilidad manual'},
+  {t:'¿Sos proactivo/a, te adelantás a los problemas sin que te los señalen?',h:'Proactividad'},
+  {t:'¿Usás computadora, aunque sea para navegar, escribir o usar el mail?',h:'Manejo básico de computadora'},
+];
+
+function toolGoTo(n){
+  document.getElementById('ts'+toolStep).classList.remove('active');
+  document.getElementById('ts'+n).classList.add('active');
+  toolStep=n;
+  for(let i=1;i<=5;i++){
+    const d=document.getElementById('td'+i);
+    if(!d)continue;
+    d.classList.remove('done','active');
+    if(i<n)d.classList.add('done');
+    else if(i===n)d.classList.add('active');
+  }
+  if(n===5)updatePreviews();
+  window.scrollTo(0,0);
+}
+
+function addExp(){
+  expC++;const n=expC;
+  const c=document.getElementById('expContainer');
+  const d=document.createElement('div');
+  d.className='repeat-block';d.id='exp-'+n;
+  d.innerHTML=`<div class="repeat-header"><span>Trabajo ${n}</span><button class="btn-remove" onclick="document.getElementById('exp-${n}').remove()">×</button></div>
+  <div class="tool-field"><label>Lugar o empresa</label><input type="text" placeholder="Ej: Almacén Don Jorge, municipio, casa de familia..." class="elugar"></div>
+  <div class="tool-field"><label>Qué hacías ahí</label><textarea placeholder="Describí brevemente tus tareas..." class="etarea"></textarea>
+  <div class="audio-row"><button class="btn-audio eabtn" onclick="toggleAudioBlock(this)">🎙 Preferís grabarlo</button><span class="audio-status eastatus"></span></div></div>
+  <div class="tool-row2"><div class="tool-field"><label>Desde</label><input type="text" placeholder="Ej: 2020" class="edesde"></div><div class="tool-field"><label>Hasta</label><input type="text" placeholder="Ej: 2022 o actualmente" class="ehasta"></div></div>`;
+  c.appendChild(d);
+}
+
+function addEdu(){
+  eduC++;const n=eduC;
+  const c=document.getElementById('eduContainer');
+  const d=document.createElement('div');
+  d.className='repeat-block';d.id='edu-'+n;
+  d.innerHTML=`<div class="repeat-header"><span>Estudio ${n}</span><button class="btn-remove" onclick="document.getElementById('edu-${n}').remove()">×</button></div>
+  <div class="tool-field"><label>Institución o curso</label><input type="text" placeholder="Ej: Escuela N°5, curso de peluquería..." class="elugar"></div>
+  <div class="tool-field"><label>Título o nivel alcanzado</label><input type="text" placeholder="Ej: Secundario completo, Técnico en contabilidad..." class="etitulo"></div>
+  <div class="tool-row2"><div class="tool-field"><label>Año de inicio</label><input type="text" placeholder="Ej: 2015" class="edesde"></div><div class="tool-field"><label>Año de fin</label><input type="text" placeholder="Ej: 2018 o en curso" class="ehasta"></div></div>`;
+  c.appendChild(d);
+}
+
+function toggleHelper(){
+  helperOpen=!helperOpen;
+  document.getElementById('helperContent').style.display=helperOpen?'block':'none';
+  document.getElementById('helperToggle').textContent=helperOpen?'Ocultar':'Mostrar';
+}
+
+function initPreguntas(){
+  const list=document.getElementById('qList');
+  PREGUNTAS.forEach(p=>{
+    const div=document.createElement('div');
+    div.className='q-item';
+    div.innerHTML=`<div class="q-dot">+</div><span class="q-text">${p.t}</span>`;
+    div.onclick=()=>{
+      if(addedHab.has(p.h))return;
+      addedHab.add(p.h);
+      const f=document.getElementById('t-hab');
+      f.value=(f.value.trim()?f.value.trim()+', ':'')+p.h;
+      div.classList.add('added');
+      div.querySelector('.q-dot').textContent='✓';
+    };
+    list.appendChild(div);
+  });
+}
+
+function initSwatches(){
+  const wrap=document.getElementById('swatches');
+  COLORS.forEach((c,i)=>{
+    const s=document.createElement('div');
+    s.className='swatch'+(i===0?' sel':'');
+    s.style.background=c.hex;s.title=c.name;
+    s.onclick=()=>{
+      selColor=c;
+      document.querySelectorAll('.swatch').forEach(x=>x.classList.remove('sel'));
+      s.classList.add('sel');
+      document.getElementById('styHeader').style.background=c.hex;
+    };
+    wrap.appendChild(s);
+  });
+}
+
+function selStyle(s){
+  cvStyle=s;
+  document.getElementById('cardMin').classList.toggle('sel',s==='minimal');
+  document.getElementById('cardSty').classList.toggle('sel',s==='styled');
+  document.getElementById('colorWrap').style.display=s==='styled'?'block':'none';
+}
+
+function updatePreviews(){
+  const n=((document.getElementById('t-nombre').value||'Tu')+' '+(document.getElementById('t-apellido').value||'nombre')).trim();
+  const c=document.getElementById('t-ciudad').value||'Ciudad';
+  document.getElementById('pNomMin').textContent=n;
+  document.getElementById('pCiuMin').textContent=c;
+  document.getElementById('pNomSty').textContent=n;
+}
+
+async function toggleAudio(fid,bid,sid){
+  await toggleAudioCore(document.getElementById(bid),document.getElementById(sid),document.getElementById(fid));
+}
+async function toggleAudioBlock(btn){
+  await toggleAudioCore(btn,btn.nextElementSibling,btn.closest('.tool-field').querySelector('textarea'));
+}
+async function toggleAudioCore(btn,status,field){
+  if(!mrecording){
+    try{
+      const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+      mrec=new MediaRecorder(stream);mchunks=[];
+      mrec.ondataavailable=e=>mchunks.push(e.data);
+      mrec.onstop=()=>{stream.getTracks().forEach(t=>t.stop());startSR(field,status,btn);};
+      mrec.start();mrecording=true;
+      btn.classList.add('rec');btn.textContent='⏹ Detener grabación';status.textContent='Grabando...';
+    }catch(e){status.textContent='No se pudo acceder al micrófono. Escribí tu respuesta.';}
+  } else {
+    if(mrec)mrec.stop();mrecording=false;
+    btn.classList.remove('rec');btn.textContent='🎙 Preferís grabarlo';status.textContent='Procesando...';
+  }
+}
+function startSR(field,status){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){status.textContent='Tu navegador no soporta transcripción. Escribí tu respuesta.';return;}
+  const r=new SR();r.lang='es-AR';r.continuous=false;r.interimResults=false;
+  r.onresult=e=>{field.value=(field.value.trim()?field.value.trim()+' ':'')+e.results[0][0].transcript;status.textContent='✓ Transcripto';};
+  r.onerror=()=>{status.textContent='No se pudo transcribir. Escribí tu respuesta.';};
+  r.start();
+}
+
+function getData(){
+  const g=id=>(document.getElementById(id)?.value||'').trim();
+  let exps=[],edus=[];
+  document.querySelectorAll('#expContainer .repeat-block').forEach(b=>{
+    const lugar=(b.querySelector('.elugar')?.value||'').trim();
+    const tareas=(b.querySelector('.etarea')?.value||'').trim();
+    const desde=(b.querySelector('.edesde')?.value||'').trim();
+    const hasta=(b.querySelector('.ehasta')?.value||'').trim();
+    if(lugar||tareas)exps.push({lugar,tareas,desde,hasta});
+  });
+  document.querySelectorAll('#eduContainer .repeat-block').forEach(b=>{
+    const lugar=(b.querySelector('.elugar')?.value||'').trim();
+    const titulo=(b.querySelector('.etitulo')?.value||'').trim();
+    const desde=(b.querySelector('.edesde')?.value||'').trim();
+    const hasta=(b.querySelector('.ehasta')?.value||'').trim();
+    if(lugar||titulo)edus.push({lugar,titulo,desde,hasta});
+  });
+  return{nombre:g('t-nombre'),apellido:g('t-apellido'),tel:g('t-tel'),mail:g('t-mail'),ciudad:g('t-ciudad'),prov:g('t-prov'),hab:g('t-hab'),idiomas:g('t-idiomas'),exps,edus};
+}
+
+function downloadPDF(){
+  const btn=document.getElementById('btnDl');
+  const ldg=document.getElementById('dlLoading');
+  btn.disabled=true;ldg.style.display='block';
+  setTimeout(()=>{
+    try{
+      const{jsPDF}=window.jspdf;
+      const doc=new jsPDF({unit:'mm',format:'a4'});
+      const d=getData();
+      const isS=cvStyle==='styled';
+      const W=210,M=20,CW=W-M*2;let y=0;
+      const cr=isS?selColor.r:51,cg=isS?selColor.g:51,cb=isS?selColor.b:51;
+      if(isS){
+        doc.setFillColor(cr,cg,cb);doc.rect(0,0,W,38,'F');
+        doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(20);
+        doc.text((d.nombre+' '+d.apellido).trim()||'Sin nombre',M,16);
+        doc.setFont('helvetica','normal');doc.setFontSize(10);
+        doc.text([d.ciudad,d.prov,d.tel,d.mail].filter(Boolean).join('  ·  '),M,26);
+        y=48;
+      } else {
+        doc.setTextColor(17,17,17);doc.setFont('helvetica','bold');doc.setFontSize(20);
+        doc.text((d.nombre+' '+d.apellido).trim()||'Sin nombre',M,20);
+        doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(100,100,100);
+        doc.text([d.ciudad,d.prov,d.tel,d.mail].filter(Boolean).join('  ·  '),M,28);
+        doc.setDrawColor(17,17,17);doc.setLineWidth(0.5);doc.line(M,32,W-M,32);
+        y=42;
+      }
+      function chk(n){if(y+n>275){doc.addPage();y=20;}}
+      function sec(t){
+        chk(14);doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(cr,cg,cb);
+        doc.text(t.toUpperCase(),M,y);doc.setDrawColor(cr,cg,cb);doc.setLineWidth(0.4);
+        doc.line(M,y+1.5,W-M,y+1.5);y+=8;doc.setTextColor(17,17,17);
+      }
+      if(d.exps.length){
+        sec('Experiencia');
+        d.exps.forEach(e=>{
+          chk(20);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(17,17,17);
+          doc.text(e.lugar||'',M,y);
+          if(e.desde||e.hasta){doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(130,130,130);doc.text([e.desde,e.hasta].filter(Boolean).join(' – '),W-M,y,{align:'right'});}
+          y+=5;
+          if(e.tareas){doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(60,60,60);doc.splitTextToSize(e.tareas,CW).forEach(l=>{chk(6);doc.text(l,M,y);y+=5;});}
+          y+=4;
+        });
+      }
+      if(d.edus.length){
+        chk(20);sec('Estudios');
+        d.edus.forEach(e=>{
+          chk(16);doc.setFont('helvetica','bold');doc.setFontSize(11);doc.setTextColor(17,17,17);
+          doc.text(e.titulo||e.lugar||'',M,y);
+          if(e.desde||e.hasta){doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(130,130,130);doc.text([e.desde,e.hasta].filter(Boolean).join(' – '),W-M,y,{align:'right'});}
+          y+=5;
+          if(e.titulo&&e.lugar){doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(80,80,80);doc.text(e.lugar,M,y);y+=5;}
+          y+=3;
+        });
+      }
+      if(d.hab){
+        chk(20);sec('Lo que sé hacer');
+        const skills=d.hab.split(',').map(s=>s.trim()).filter(Boolean).join('   ·   ');
+        doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(50,50,50);
+        doc.splitTextToSize(skills,CW).forEach(l=>{chk(6);doc.text(l,M,y);y+=5;});y+=4;
+      }
+      if(d.idiomas){chk(16);sec('Idiomas');doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(50,50,50);doc.text(d.idiomas,M,y);}
+      doc.save(`CV_${(d.nombre+'_'+d.apellido).trim().replace(/\s+/g,'_')||'mi_cv'}.pdf`);
+    }catch(e){alert('Hubo un error generando el PDF. Intentá de nuevo.');}
+    btn.disabled=false;ldg.style.display='none';
+  },100);
+}
+
+// ── EMPLEOS ──
+let empleos=[];let empFiltro='Todos';
+
+async function cargarEmpleos(){
+  try{const r=await window.storage.get('cvpro-empleos',true);empleos=r?JSON.parse(r.value):[];}
+  catch(e){empleos=[];}
+  renderEmpleos();renderAdminItems();
+}
+
+function renderEmpleos(){
+  const rubros=['Todos',...new Set(empleos.map(e=>e.rubro))];
+  const fil=document.getElementById('empFilters');
+  fil.innerHTML='';
+  rubros.forEach(r=>{
+    const b=document.createElement('button');
+    b.className='empleo-filter-btn'+(r===empFiltro?' active':'');
+    b.textContent=r;b.onclick=()=>{empFiltro=r;renderEmpleos();};
+    fil.appendChild(b);
+  });
+  const lista=document.getElementById('empList');
+  const filtrados=empFiltro==='Todos'?empleos:empleos.filter(e=>e.rubro===empFiltro);
+  if(!filtrados.length){lista.innerHTML='<div class="empleos-empty">No hay empleos cargados en este momento. Volvé a consultar pronto.</div>';return;}
+  lista.innerHTML=filtrados.map(e=>`
+    <div class="empleo-card">
+      <div class="empleo-card-header"><div class="empleo-puesto">${e.puesto}</div><div class="empleo-zona">${e.localidad}</div></div>
+      <div class="empleo-req">${e.requisitos||''}</div>
+      <div class="empleo-footer"><div class="empleo-contacto">${e.contacto}</div><div class="empleo-fecha">${e.fecha||''}</div></div>
+    </div>`).join('');
+}
+
+function renderAdminItems(){
+  const list=document.getElementById('adminItems');
+  if(!empleos.length){list.innerHTML='';return;}
+  list.innerHTML=empleos.map((e,i)=>`
+    <div class="admin-item">
+      <div><div class="admin-item-name">${e.puesto}</div><div class="admin-item-sub">${e.localidad} · ${e.rubro}</div></div>
+      <button class="btn-del" onclick="delEmpleo(${i})">Eliminar</button>
+    </div>`).join('');
+}
+
+function toggleAdmin(){
+  document.getElementById('adminPanel').classList.toggle('open');
+}
+
+async function addEmpleo(){
+  const p=document.getElementById('ap').value.trim();
+  const l=document.getElementById('al').value.trim();
+  const r=document.getElementById('ar').value.trim();
+  const c=document.getElementById('ac').value.trim();
+  const rub=document.getElementById('arub').value;
+  if(!p||!l||!c){alert('Completá al menos el puesto, la localidad y el contacto.');return;}
+  empleos.unshift({puesto:p,localidad:l,requisitos:r,contacto:c,rubro:rub,fecha:new Date().toLocaleDateString('es-AR',{day:'numeric',month:'long'})});
+  await guardarEmpleos();
+  ['ap','al','ar','ac'].forEach(id=>document.getElementById(id).value='');
+  renderEmpleos();renderAdminItems();
+}
+
+async function delEmpleo(i){
+  if(!confirm('¿Eliminar este empleo?'))return;
+  empleos.splice(i,1);await guardarEmpleos();renderEmpleos();renderAdminItems();
+}
+
+async function guardarEmpleos(){
+  try{await window.storage.set('cvpro-empleos',JSON.stringify(empleos),true);}catch(e){}
+}
+
+// ── FAQ ──
+const FAQS=[
+  {q:'¿Necesito saber usar la computadora?',a:'No. La herramienta te guía paso a paso. Si podés usar WhatsApp, podés usar esto.'},
+  {q:'¿Y si nunca trabajé o no tengo experiencia formal?',a:'No importa. Te ayudamos a identificar lo que sabés hacer: comunicarte bien, organizarte, manejar redes, cuidar personas, cocinar, arreglar cosas. Todo eso es una habilidad real y puede estar en tu CV.'},
+  {q:'¿Cómo recibo mi CV?',a:'Lo descargás directamente en PDF desde la herramienta. Una vez descargado es tuyo para siempre — lo imprimís, lo enviás y lo usás todas las veces que necesites.'},
+  {q:'¿Puedo usarlo desde el celular?',a:'Sí, funciona desde cualquier celular o computadora con internet.'},
+  {q:'¿Qué pasa si me equivoco en algo?',a:'Podés volver atrás y corregir en cualquier momento antes de descargar. No hay límite de intentos.'},
+  {q:'¿Qué incluye el precio?',a:'Todo lo que necesitás: la herramienta para armar tu CV, dos estilos con colores a elegir, ayuda para descubrir tus habilidades, guía de errores comunes y checklist antes de postularte. Todo por $9.500, pago único.'},
+];
+
+function initFAQ(){
+  const list=document.getElementById('faqList');
+  FAQS.forEach((f,i)=>{
+    const item=document.createElement('div');
+    item.className='faq-item';
+    item.innerHTML=`<button class="faq-q" onclick="toggleFAQ(${i})"><span>${f.q}</span><span class="faq-icon">+</span></button><div class="faq-a">${f.a}</div>`;
+    list.appendChild(item);
+  });
+}
+
+function toggleFAQ(i){
+  const items=document.querySelectorAll('.faq-item');
+  items[i].classList.toggle('open');
+}
+
+// ── INIT ──
+mostrar('landing');
+initPreguntas();
+initSwatches();
+initFAQ();
+addExp();
+addEdu();
+cargarEmpleos();
+</script>
+</body>
+</html>
