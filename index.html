@@ -424,7 +424,7 @@
         <div class="entregable-icon">⚠️</div>
         <div class="entregable-body">
           <h4>Guía de errores comunes</h4>
-          <p>Lo que debes evitar para que tu CV se vea profesional desde el primer vistazo.</p>
+          <p>Lo que debés evitar para que tu CV se vea profesional desde el primer vistazo.</p>
         </div>
       </div>
       <div class="entregable">
@@ -553,11 +553,7 @@
         <div class="pago-inc-item"><span class="pago-inc-check">✓</span> Guía de errores comunes + checklist</div>
       </div>
       <button class="btn-mp" onclick="simularPago()">
-         <svg width="24" height="24" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M24 4C12.954 4 4 12.954 4 24C4 35.046 12.954 44 24 44C35.046 44 44 35.046 44 24C44 12.954 35.046 4 24 4Z" fill="white"/>
-    <path d="M34.5 20.5C34.5 26.299 29.799 31 24 31C18.201 31 13.5 26.299 13.5 20.5C13.5 14.701 18.201 10 24 10C29.799 10 34.5 14.701 34.5 20.5Z" fill="#009EE3"/>
-    <path d="M24 31C26.8 31 29.4 29.9 31.4 28.1L37.5 34.2C34.2 37.1 29.8 39 25 39C14.5 39 6 30.5 6 20C6 19.3 6.1 18.7 6.1 18H14.2C14.1 18.7 14 19.3 14 20C14 26.1 18.9 31 25 31H24Z" fill="#00B1EA"/>
-  </svg>
+        <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/5.21.22/mercadopago/logo__large@2x.png" alt="Mercado Pago" style="height:22px;filter:brightness(0) invert(1)">
         Pagar con Mercado Pago
       </button>
       <div class="pago-secure">🔒 Pago seguro · Tu información está protegida</div>
@@ -688,7 +684,7 @@
         <textarea id="t-hab" placeholder="Ej: Atención al cliente, organización, manejo de redes sociales..."></textarea>
         <div class="tool-hint">Separalas con comas. Podés escribir, tocar las sugerencias, o usar el micrófono.</div>
         <div class="audio-row">
-          <button class="btn-audio" id="btnAudHab" onclick="toggleAudio('t-hab','btnAudHab','stHab')">🎙 Preferís grabarlo</button>
+          <button class="btn-audio" id="btnAudHab" onclick="toggleAudio('t-hab','btnAudHab','stHab')">Prefiero grabarlo</button>
           <span class="audio-status" id="stHab"></span>
         </div>
       </div>
@@ -743,6 +739,22 @@
       <div id="colorWrap" style="display:none;margin-bottom:16px">
         <div style="font-size:13px;color:var(--gray-600);margin-bottom:8px">Color del encabezado</div>
         <div class="swatches" id="swatches"></div>
+
+        <div style="margin-top:20px">
+          <div style="font-size:13px;color:var(--gray-600);margin-bottom:8px">Foto de perfil <span class="tag-opt">opcional</span></div>
+          <div id="fotoAviso" style="display:flex;align-items:flex-start;gap:10px;background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:13px;color:#92400E;line-height:1.5">
+            <span style="font-size:16px;flex-shrink:0">⚠️</span>
+            <span>Usá una foto tipo carnet: fondo liso, buena luz, ropa prolija. <strong>Evitá fotos de fiestas, vacaciones o recortadas de otra imagen</strong> — es uno de los errores más comunes que alejan a los empleadores.</span>
+          </div>
+          <div id="fotoPreviewWrap" style="display:none;margin-bottom:12px;text-align:center">
+            <img id="fotoPreview" src="" alt="Vista previa" style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--gray-200)">
+            <div style="margin-top:6px"><button onclick="quitarFoto()" style="font-size:12px;color:var(--red);background:none;border:none;cursor:pointer">Quitar foto</button></div>
+          </div>
+          <label style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:500;padding:10px;border:1px dashed var(--gray-200);border-radius:8px;cursor:pointer;color:var(--gray-600)">
+            <span>📷</span> Subir foto
+            <input type="file" id="fotoInput" accept="image/*" style="display:none" onchange="cargarFoto(this)">
+          </label>
+        </div>
       </div>
       <div class="tool-nav">
         <button class="tool-back" onclick="toolGoTo(4)">← Atrás</button>
@@ -791,7 +803,7 @@ function irAPago(){ mostrar('pago'); }
 function irALanding(){ mostrar('landing'); }
 function simularPago(){
   // En producción: verificar ?status=approved de Mercado Pago
-  window.location.href = 'https://mpago.li/1B1DihC';
+  mostrar('gracias');
 }
 function irAHerramienta(){ mostrar('herramienta'); }
 
@@ -825,6 +837,8 @@ const PREGUNTAS=[
 ];
 
 function toolGoTo(n){
+  if(n===3) ordenarBloques('expContainer', false);
+  if(n===4) ordenarBloques('eduContainer', true);
   document.getElementById('ts'+toolStep).classList.remove('active');
   document.getElementById('ts'+n).classList.add('active');
   toolStep=n;
@@ -847,7 +861,7 @@ function addExp(){
   d.innerHTML=`<div class="repeat-header"><span>Trabajo ${n}</span><button class="btn-remove" onclick="document.getElementById('exp-${n}').remove()">×</button></div>
   <div class="tool-field"><label>Lugar o empresa</label><input type="text" placeholder="Ej: Almacén Don Jorge, municipio, casa de familia..." class="elugar"></div>
   <div class="tool-field"><label>Qué hacías ahí</label><textarea placeholder="Describí brevemente tus tareas..." class="etarea"></textarea>
-  <div class="audio-row"><button class="btn-audio eabtn" onclick="toggleAudioBlock(this)">🎙 Preferís grabarlo</button><span class="audio-status eastatus"></span></div></div>
+  <div class="audio-row"><button class="btn-audio eabtn" onclick="toggleAudioBlock(this)">Prefiero grabarlo</button><span class="audio-status eastatus"></span></div></div>
   <div class="tool-row2"><div class="tool-field"><label>Desde</label><input type="text" placeholder="Ej: 2020" class="edesde"></div><div class="tool-field"><label>Hasta</label><input type="text" placeholder="Ej: 2022 o actualmente" class="ehasta"></div></div>`;
   c.appendChild(d);
 }
@@ -909,6 +923,7 @@ function selStyle(s){
   document.getElementById('cardMin').classList.toggle('sel',s==='minimal');
   document.getElementById('cardSty').classList.toggle('sel',s==='styled');
   document.getElementById('colorWrap').style.display=s==='styled'?'block':'none';
+  if(s==='minimal'){ quitarFoto(); }
 }
 
 function updatePreviews(){
@@ -937,7 +952,7 @@ async function toggleAudioCore(btn,status,field){
     }catch(e){status.textContent='No se pudo acceder al micrófono. Escribí tu respuesta.';}
   } else {
     if(mrec)mrec.stop();mrecording=false;
-    btn.classList.remove('rec');btn.textContent='🎙 Prefiero grabarlo';status.textContent='Procesando...';
+    btn.classList.remove('rec');btn.textContent='Prefiero grabarlo';status.textContent='Procesando...';
   }
 }
 function startSR(field,status){
@@ -969,6 +984,57 @@ function getData(){
   return{nombre:g('t-nombre'),apellido:g('t-apellido'),tel:g('t-tel'),mail:g('t-mail'),ciudad:g('t-ciudad'),prov:g('t-prov'),hab:g('t-hab'),idiomas:g('t-idiomas'),exps,edus};
 }
 
+
+// ── ORDENAR POR AÑO ──
+function parsearAno(str) {
+  if (!str) return 0;
+  const s = str.toLowerCase().trim();
+  if (s === 'actualmente' || s === 'en curso' || s === 'presente') return 9999;
+  const match = s.match(/\d{4}/);
+  return match ? parseInt(match[0]) : 0;
+}
+
+function ordenarBloques(containerId, hasTitulo) {
+  const container = document.getElementById(containerId);
+  const bloques = Array.from(container.querySelectorAll('.repeat-block'));
+  if (bloques.length < 2) return;
+  bloques.sort((a, b) => {
+    const aHasta = parsearAno(a.querySelector('.ehasta')?.value || '');
+    const bHasta = parsearAno(b.querySelector('.ehasta')?.value || '');
+    return bHasta - aHasta;
+  });
+  bloques.forEach(b => container.appendChild(b));
+  // Re-numerar
+  bloques.forEach((b, i) => {
+    const label = hasTitulo ? 'Estudio' : 'Trabajo';
+    const span = b.querySelector('.repeat-header span');
+    if (span) span.textContent = label + ' ' + (i + 1);
+  });
+}
+
+
+// ── FOTO DE PERFIL ──
+let fotoBase64 = null;
+
+function cargarFoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    fotoBase64 = e.target.result;
+    document.getElementById('fotoPreview').src = fotoBase64;
+    document.getElementById('fotoPreviewWrap').style.display = 'block';
+  };
+  reader.readAsDataURL(file);
+}
+
+function quitarFoto() {
+  fotoBase64 = null;
+  document.getElementById('fotoInput').value = '';
+  document.getElementById('fotoPreviewWrap').style.display = 'none';
+  document.getElementById('fotoPreview').src = '';
+}
+
 function downloadPDF(){
   const btn=document.getElementById('btnDl');
   const ldg=document.getElementById('dlLoading');
@@ -982,12 +1048,24 @@ function downloadPDF(){
       const W=210,M=20,CW=W-M*2;let y=0;
       const cr=isS?selColor.r:51,cg=isS?selColor.g:51,cb=isS?selColor.b:51;
       if(isS){
-        doc.setFillColor(cr,cg,cb);doc.rect(0,0,W,38,'F');
+        const headerH = fotoBase64 ? 44 : 38;
+        doc.setFillColor(cr,cg,cb);doc.rect(0,0,W,headerH,'F');
+        if(fotoBase64){
+          try{
+            const imgX = W - M - 22;
+            doc.addImage(fotoBase64,'JPEG',imgX,6,22,22,'','FAST');
+            // circle clip via white ring
+            doc.setDrawColor(255,255,255);doc.setLineWidth(1);
+            doc.circle(imgX+11,17,12);
+          }catch(e){}
+        }
+        const textMaxW = fotoBase64 ? W - M*2 - 28 : CW;
         doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(20);
         doc.text((d.nombre+' '+d.apellido).trim()||'Sin nombre',M,16);
         doc.setFont('helvetica','normal');doc.setFontSize(10);
-        doc.text([d.ciudad,d.prov,d.tel,d.mail].filter(Boolean).join('  ·  '),M,26);
-        y=48;
+        const contactLine = [d.ciudad,d.prov,d.tel,d.mail].filter(Boolean).join('  ·  ');
+        doc.splitTextToSize(contactLine, textMaxW).forEach((l,i)=>doc.text(l,M,26+i*5));
+        y = headerH + 10;
       } else {
         doc.setTextColor(17,17,17);doc.setFont('helvetica','bold');doc.setFontSize(20);
         doc.text((d.nombre+' '+d.apellido).trim()||'Sin nombre',M,20);
