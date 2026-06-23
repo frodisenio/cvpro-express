@@ -634,6 +634,11 @@
         <div class="tool-field"><label>Ciudad</label><input id="t-ciudad" type="text" placeholder="Ej: Córdoba"></div>
         <div class="tool-field"><label>Provincia</label><input id="t-prov" type="text" placeholder="Ej: Córdoba"></div>
       </div>
+      <div class="tool-field">
+  <label>Portfolio o LinkedIn <span class="tag-opt">opcional</span></label>
+  <input id="t-link" type="url" placeholder="Ej: linkedin.com/in/tu-nombre o miportfolio.com">
+  <div class="tool-hint">Si tenés un perfil o sitio web que muestre tu trabajo, podés incluirlo.</div>
+</div>
       <div class="tool-nav"><span></span><button class="tool-next" onclick="toolGoTo(2)">Siguiente</button></div>
     </div>
 
@@ -980,9 +985,8 @@ function getData(){
     const hasta=(b.querySelector('.ehasta')?.value||'').trim();
     if(lugar||titulo)edus.push({lugar,titulo,desde,hasta});
   });
-  return{nombre:g('t-nombre'),apellido:g('t-apellido'),tel:g('t-tel'),mail:g('t-mail'),ciudad:g('t-ciudad'),prov:g('t-prov'),hab:g('t-hab'),idiomas:g('t-idiomas'),exps,edus};
+return{nombre:g('t-nombre'),apellido:g('t-apellido'),tel:g('t-tel'),mail:g('t-mail'),ciudad:g('t-ciudad'),prov:g('t-prov'),hab:g('t-hab'),idiomas:g('t-idiomas'),link:g('t-link'),exps,edus};}
 }
-
 
 // ── ORDENAR POR AÑO ──
 function parsearAno(str) {
@@ -1085,7 +1089,7 @@ function downloadPDF(){
         doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');doc.setFontSize(20);
         doc.text((d.nombre+' '+d.apellido).trim()||'Sin nombre',M,16);
         doc.setFont('helvetica','normal');doc.setFontSize(10);
-        const contactLine = [d.ciudad,d.prov,d.tel,d.mail].filter(Boolean).join('  ·  ');
+        const contactLine = [d.ciudad,d.prov,d.tel,d.mail,d.link].filter(Boolean).join('  ·  ');
         doc.splitTextToSize(contactLine, textMaxW).forEach((l,i)=>doc.text(l,M,26+i*5));
         y = headerH + 10;
       } else {
